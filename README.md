@@ -1,3 +1,26 @@
+## To-Do-List and Progress
+### Front-end
+* Landing page
+  * login/signup form
+  * app description
+* User dashboard
+  * 
+
+### Back-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
