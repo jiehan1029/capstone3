@@ -1,0 +1,17 @@
+.ticket-list{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding:0px;
+	width:80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ticket{
+	list-style: none;
+	border:1px solid black;
+	background-color: lightgrey;
+	padding:20px;
+	margin:0px;
+}
