@@ -1,12 +1,17 @@
 export const required = value => (value ? undefined : 'Required');
 export const nonEmpty = value =>
-  value.trim() !== '' ? undefined : 'Cannot be empty';
-
-export const noWhiteSpacePadding = value =>
-  value.trim()===value ? undefined : 'Cannot have white space as start or end character';
-
-export const minLength = value =>
-  value.length>=4? undefined: 'Minimal length is 4';
-
-export const maxLength = value =>
-	value.length<=24? undefined: 'Maximal length is 24';
+    value.trim() !== '' ? undefined : 'Cannot be empty';
+export const isTrimmed = value =>
+    value.trim() === value ? undefined : 'Cannot start or end with whitespace';
+export const length = length => value => {
+    if (length.min && value.length < length.min) {
+        return `Must be at least ${length.min} characters long`;
+    }
+    if (length.max && value.length > length.max) {
+        return `Must be at most ${length.max} characters long`;
+    }
+};
+export const matches = field => (value, allValues) =>
+    field in allValues && value.trim() === allValues[field].trim()
+        ? undefined
+        : 'Does not match';
