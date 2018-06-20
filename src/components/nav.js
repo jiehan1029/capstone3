@@ -36,7 +36,6 @@ export class Nav extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    loggedIn: state.auth.currentUser !== null,
     username: state.auth.currentUser.username
 });
 

@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
 import {fetchProtectedData} from '../actions/protected-data';
 
+import {loadAuthToken} from '../local-storage';
+
 export class Dashboard extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchProtectedData());
@@ -16,11 +18,13 @@ export class Dashboard extends React.Component {
   // figure out server response first
 
   render() {
+    const auth=loadAuthToken();
     return (
       <div className="dashboard">
         <div className="dashboard-username">
           Username: {this.props.username}
         </div>
+        <div>Auth: {auth}</div>
         <div className="dashboard-protected-data">
           Protected data: {this.props.protectedData}
         </div>
