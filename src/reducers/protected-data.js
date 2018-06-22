@@ -1,20 +1,29 @@
 import {
-    FETCH_PROTECTED_DATA_SUCCESS,
+    FETCH_MY_BUCKET_SUCCESS,
+    FETCH_MY_WALL_SUCCESS,
     FETCH_PROTECTED_DATA_ERROR
 } from '../actions/protected-data';
 
 const initialState = {
-    data: '',
+    myBucketData: [],
+    myWallData: [],
     error: null
 };
 
 export default function reducer(state = initialState, action) {
-    if (action.type === FETCH_PROTECTED_DATA_SUCCESS) {
+    if (action.type === FETCH_MY_BUCKET_SUCCESS) {
         return Object.assign({}, state, {
-            data: action.data,
+            myBucketData: action.myBucketData,
             error: null
         });
-    } else if (action.type === FETCH_PROTECTED_DATA_ERROR) {
+    }
+    else if (action.type === FETCH_MY_WALL_SUCCESS) {
+        return Object.assign({}, state, {
+            myWallData: action.myWallData,
+            error: null
+        });
+    } 
+    else if (action.type === FETCH_PROTECTED_DATA_ERROR) {
         return Object.assign({}, state, {
             error: action.error
         });

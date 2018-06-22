@@ -1,32 +1,29 @@
-// to-be edited
-// in dashboard, will display recent activities such as new tickets added, new tickets completed
-// those events will be displayed in chronological order
-
 import React from 'react';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
-import {fetchProtectedData} from '../actions/protected-data';
-
-import {loadAuthToken} from '../local-storage';
+import {fetchMyBucket, fetchMyWall} from '../actions/protected-data';
 
 export class Dashboard extends React.Component {
+
   componentDidMount() {
-    this.props.dispatch(fetchProtectedData());
+    this.props.dispatch(fetchMyBucket());
+    this.props.dispatch(fetchMyWall());
   }
   
-  // need to do something with the protected data
-  // figure out server response first
-
   render() {
-    const auth=loadAuthToken();
+    //must declare a variable instead of using props.myTickets directly
+    // because when mount the component initially the myTickets prop doesn't exist
+    let myTickets=this.props.myTickets.length>0?this.props.myTickets:[];
+    let myRecords=this.props.myRecords.length>0?this.props.myRecords:[];
+    
+    let test=this.props.myTickets.length>0?this.props.myTickets[0].where:'';
     return (
       <div className="dashboard">
         <div className="dashboard-username">
           Username: {this.props.username}
         </div>
-        <div>Auth: {auth}</div>
         <div className="dashboard-protected-data">
-          Protected data: {this.props.protectedData}
+        {test}
         </div>
       </div>
     );
@@ -36,7 +33,8 @@ export class Dashboard extends React.Component {
 const mapStateToProps = state => {
     return {
         username: state.auth.currentUser.username,
-        protectedData: state.protectedData.data
+        myTickets: state.protectedData.myBucketData,
+        myRecords: state.protectedData.myWallData
     };
 };
 
