@@ -6,6 +6,7 @@ import Header from './header';
 import Footer from './footer';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
+import MyBucket from './my-bucket';
 import RegistrationPage from './registration-page';
 import {refreshAuthToken} from '../actions/auth';
 
@@ -46,8 +47,9 @@ export class App extends React.Component {
       <div className="app">
         <Header />
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/register" component={RegistrationPage} />        
         <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/register" component={RegistrationPage} />
+        <Route exact path="/my-bucket" component={MyBucket} />
         <Footer />
       </div>
     );
