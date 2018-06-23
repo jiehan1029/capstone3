@@ -28,13 +28,17 @@ export class Tickets extends React.Component {
 		this.state={
 			showDeleteModal:false,
 			showEditModal:false,
+			showPostMomentModal:false,
 			whichModal:null,
+
 			currTicket:null,
 			currTicketName:"",
-			formSubmitStatus:""
+			formSubmitStatus:"",
+			photoUploadStatus:""
 		}
 		this.handleOpenModal=this.handleOpenModal.bind(this);	
 		this.handleCloseModal=this.handleCloseModal.bind(this);
+
 		this.resetFormStatus=this.resetFormStatus.bind(this);
 	}
 
@@ -44,13 +48,17 @@ export class Tickets extends React.Component {
     });
   }
 
-// to edit!!!!
-// use editTicket
-// need to write editTicket function in actions
   handleEdit(e){
     e.preventDefault();
-    const data = new FormData(e.target);
+    const formData = new FormData(e.target);
     e.target.reset();
+    const data={
+    	ticketId:this.state.currTicket,
+    	what:formData.get('what'),
+    	type:formData.get('type'),
+    	where:formData.get('where'),
+    	details:formData.get('details')
+    }
     return this.props.dispatch(editTicket(data))
     .then(()=>{
       console.log('edit ticket form successful!');
@@ -66,19 +74,34 @@ export class Tickets extends React.Component {
     });
   }
 
+	handleDelete(){
+		const ticketId=this.state.currTicket;
+		this.props.dispatch(deleteTicket(ticketId)).then(this.handleCloseModal());
+	}
+
+// to edit, photoupload module
+// also need a POST to post photo url together with memo text to my-wall endpoint
+	handlePhotoUpload(){
+
+	}
+
+	// for ReactModal
 	handleOpenModal(e){
 		// find the event target to set state
-		const target=ReactDOM.findDOMNode(e.target).innerHTML;
+		const targetBtnText=ReactDOM.findDOMNode(e.target).innerHTML;
 		// while open the modal, save ticketId to state for later access
 		// this is how to access DOM via ReactDOM
 		const ticketId=ReactDOM.findDOMNode(e.target).parentNode.getAttribute('data-ticketid');
 		const ticketName=ReactDOM.findDOMNode(e.target).parentNode.getElementsByClassName('ticket-what')[0].innerHTML;
 		this.setState({currTicket:ticketId, currTicketName:ticketName});		
-		if(target==='delete'){
+		if(targetBtnText==='delete'){
 			this.setState({showDeleteModal:true, whichModal:'delete'});
 		}
-		else if(target==='edit'){
+		else if(targetBtnText==='edit'){
 			this.setState({showEditModal:true, whichModal:'edit'});
+		}
+		else if(targetBtnText==='post a moment'){
+			this.setState({showPostMomentModal:true, whichModal:'moment'});
 		}
 	}
 
@@ -91,12 +114,11 @@ export class Tickets extends React.Component {
 		else if(this.state.whichModal==='edit'){
 			this.setState({showEditModal:false});
 		}
-	}	
-
-	handleDelete(){
-		const ticketId=this.state.currTicket;
-		this.props.dispatch(deleteTicket(ticketId)).then(this.handleCloseModal());
-	}
+		else if(this.state.whichModal==='moment'){
+			this.setState({showPostMomentModal:false});
+		}
+		this.setState({whichModal:null});
+	}		
 
 
 	render(){
@@ -109,7 +131,8 @@ export class Tickets extends React.Component {
 				<h3 className="ticket-what">{ticket.what}</h3>
 				<div className="ticket-where">{ticket.where}</div>
 				<div className="ticket-details">{ticket.details}</div>
-				<button 
+				<button
+					onClick={e=>this.handleOpenModal(e)} 
 					title="you've done it? post a moment to your wall!"
 				>post a moment</button>
 				<button
@@ -153,12 +176,34 @@ export class Tickets extends React.Component {
 				<button onClick={this.handleCloseModal}>Close</button>
 			</ReactModal>
 
+		const postMomentModal =
+			<ReactModal
+				isOpen={this.state.showPostMomentModal}
+				onRequestClose={this.handleCloseModal}
+				style={customStyles}
+				contentLabel="post a moment dialogue"
+			>
+				<h4>Create a moment for {this.state.currTicketName}</h4>
+				<label>Memo: <textarea placeholder="write a short story of what you want to keep" /></label>
+				<br />
+				<label>Upload a photo (max 5 photos): </label>
+				<br />
+				<button onClick={this.handlePhotoUpload}>Upload</button>
+				<br />
+				<button>Save the moment!</button>
+				<div className="remainder">{this.state.photoUploadStatus}</div>
+				<button onClick={this.handleCloseModal}>Close</button>
+			</ReactModal>
+
 	  return (
-	    <ul className="ticket-list">
-	    	{tickets}
-	    	{confirmDeleteModal}
-	    	{editFormModal}
-	    </ul>
+	  	<div>
+		    <ul className="ticket-list">
+		    	{tickets}
+		    </ul>
+		    {confirmDeleteModal}
+		    {editFormModal}
+		    {postMomentModal}
+	    </div>
 	  );
 	}
 }

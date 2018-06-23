@@ -90,6 +90,7 @@ export const deleteTicket = ticketId => (dispatch,getState) =>{
       'Authorization': `Bearer ${authToken}`
     }
   })
+  .then(res => normalizeResponseErrors(res))  
   .then(()=>{
     console.log('delete ticket success!');
     dispatch(fetchMyBucket());
@@ -101,5 +102,21 @@ export const deleteTicket = ticketId => (dispatch,getState) =>{
 
 export const editTicket= data => (dispatch,getState) =>{
   console.log('in submit edit reducer');
-
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/my-bucket/ticket/${data.ticketId}`, {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${authToken}`
+    },
+    body:JSON.stringify(data)
+  })
+  .then(res => normalizeResponseErrors(res))   
+  .then(res => res.json())
+  .then(savedDoc => {
+    dispatch(fetchMyBucket());
+  })
+  .catch(err => {
+    dispatch(fetchProtectedDataError(err));
+  });  
 }
