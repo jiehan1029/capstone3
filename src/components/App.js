@@ -7,7 +7,9 @@ import Footer from './footer';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import MyBucket from './my-bucket';
+import MyWall from './my-wall';
 import RegistrationPage from './registration-page';
+import NotFoundRoute from './not-found-route';
 import {refreshAuthToken} from '../actions/auth';
 
 import './App.css';
@@ -50,6 +52,8 @@ export class App extends React.Component {
         <Route exact path="/register" component={RegistrationPage} />        
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/my-bucket" component={MyBucket} />
+        <Route exact path="/my-wall" component={myWall} />
+        <Route path="*" component={NotFoundRoute} />
         <Footer />
       </div>
     );

@@ -101,7 +101,6 @@ export const deleteTicket = ticketId => (dispatch,getState) =>{
 }
 
 export const editTicket= data => (dispatch,getState) =>{
-  console.log('in submit edit reducer');
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/my-bucket/ticket/${data.ticketId}`, {
     method: 'PUT',
@@ -119,4 +118,26 @@ export const editTicket= data => (dispatch,getState) =>{
   .catch(err => {
     dispatch(fetchProtectedDataError(err));
   });  
+}
+
+export const uploadImage = data => (dispatch,getState) => {
+  console.log('in image upload reducer');
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/image`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${authToken}`
+    },
+    body:JSON.stringify(data)
+  })
+  .then(res => normalizeResponseErrors(res))   
+  .then(res => res.json())
+  .then(resData => {
+    dispatch(fetchMyWall());
+  })
+  .catch(err => {
+    dispatch(fetchProtectedDataError(err));
+  }); 
+
 }

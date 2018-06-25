@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 import {deleteTicket,editTicket} from '../actions/protected-data';
 import TicketForm from './ticket-form';
+import ImageUploader from './image-uploader';
 
 import './tickets.css';
 
@@ -186,10 +187,7 @@ export class Tickets extends React.Component {
 				<h4>Create a moment for {this.state.currTicketName}</h4>
 				<label>Memo: <textarea placeholder="write a short story of what you want to keep" /></label>
 				<br />
-				<label>Upload a photo (max 5 photos): </label>
-				<br />
-				<button onClick={this.handlePhotoUpload}>Upload</button>
-				<br />
+				<ImageUploader />
 				<button>Save the moment!</button>
 				<div className="remainder">{this.state.photoUploadStatus}</div>
 				<button onClick={this.handleCloseModal}>Close</button>
