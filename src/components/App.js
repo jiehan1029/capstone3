@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, withRouter} from 'react-router-dom';
+import {Switch, Route, withRouter} from 'react-router-dom';
 
 import Header from './header';
 import Footer from './footer';
@@ -48,12 +48,14 @@ export class App extends React.Component {
     return (
       <div className="app">
         <Header />
+        <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/register" component={RegistrationPage} />        
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/my-bucket" component={MyBucket} />
-        <Route exact path="/my-wall" component={myWall} />
+        <Route exact path="/my-wall" component={MyWall} />
         <Route path="*" component={NotFoundRoute} />
+        </Switch>
         <Footer />
       </div>
     );

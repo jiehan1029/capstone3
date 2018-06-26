@@ -34,8 +34,7 @@ export class Tickets extends React.Component {
 
 			currTicket:null,
 			currTicketName:"",
-			formSubmitStatus:"",
-			photoUploadStatus:""
+			formSubmitStatus:""
 		}
 		this.handleOpenModal=this.handleOpenModal.bind(this);	
 		this.handleCloseModal=this.handleCloseModal.bind(this);
@@ -78,12 +77,6 @@ export class Tickets extends React.Component {
 	handleDelete(){
 		const ticketId=this.state.currTicket;
 		this.props.dispatch(deleteTicket(ticketId)).then(this.handleCloseModal());
-	}
-
-// to edit, photoupload module
-// also need a POST to post photo url together with memo text to my-wall endpoint
-	handlePhotoUpload(){
-
 	}
 
 	// for ReactModal
@@ -184,12 +177,7 @@ export class Tickets extends React.Component {
 				style={customStyles}
 				contentLabel="post a moment dialogue"
 			>
-				<h4>Create a moment for {this.state.currTicketName}</h4>
-				<label>Memo: <textarea placeholder="write a short story of what you want to keep" /></label>
-				<br />
-				<ImageUploader />
-				<button>Save the moment!</button>
-				<div className="remainder">{this.state.photoUploadStatus}</div>
+				<ImageUploader ticketId={this.state.currTicket}/>
 				<button onClick={this.handleCloseModal}>Close</button>
 			</ReactModal>
 

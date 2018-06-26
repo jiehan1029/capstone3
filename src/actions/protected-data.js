@@ -121,7 +121,6 @@ export const editTicket= data => (dispatch,getState) =>{
 }
 
 export const uploadImage = data => (dispatch,getState) => {
-  console.log('in image upload reducer');
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/image`, {
     method: 'POST',
@@ -133,11 +132,12 @@ export const uploadImage = data => (dispatch,getState) => {
   })
   .then(res => normalizeResponseErrors(res))   
   .then(res => res.json())
-  .then(resData => {
-    dispatch(fetchMyWall());
+  .then(data=>{
+    return data;
   })
   .catch(err => {
-    dispatch(fetchProtectedDataError(err));
+    console.log(err);
+    //dispatch(fetchProtectedDataError(err));
   }); 
 
 }

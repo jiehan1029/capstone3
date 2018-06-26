@@ -1,55 +1,67 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import {uploadImage} from '../actions/protected-data';
 
 export class ImageUploader extends React.Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.state = {
-      data_uri: null,
+      uploadStatus: null,
       processing: false,
-      uploadStatus: ""
+      text:'',
+      time:formatDate(new Date())
     }
 
     this.handleFile=this.handleFile.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
-    console.log('inside handle submit for image uploader')
-    e.preventDefault();
-    const _this = this;
+  setText(text){
+    this.setState({
+      text
+    })
+  }
 
+  setTime(time){
+    this.setState({
+      time
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
     this.setState({
       processing: true
     });
-
     const data = {
+        ticketId: this.props.ticketId,
         data_uri: this.state.data_uri,
-        filename: this.state.filename,
-        filetype: this.state.filetype
+        text:this.state.text,
+        time:this.state.time
     };
-
     return this.props.dispatch(uploadImage(data))
-    .then(()=>{
-      console.log('image upload completed!');
+    .then((data)=>{
+      console.log('moment/image upload completed!');
+      console.log(data);
       this.setState({
         processing:false,
-        uploadStatus: "upload success"
-        uploaded_uri: data.uri
+        uploadStatus: "success",
+        text:'',
+        time:formatDate(new Date())
       });
     })
     .catch(err=>{
       console.error(err);
       this.setState({
         processing:false,
-        uploadStatus: "upload failed"
+        uploadStatus: "failed"
       });
     });
   }
 
   handleFile(e) {
-    console.log('inside handle file function')
     const reader = new FileReader();
     const file = e.target.files[0];
 
@@ -72,30 +84,48 @@ export class ImageUploader extends React.Component {
     let processing;
     let uploaded;
 
-    if (this.state.uploaded_uri) {
+    if (this.state.uploadStatus==='success') {
       uploaded = (
         <div>
-          <h4>Image uploaded!</h4>
-          <img className='image-preview' src={this.state.uploaded_uri} />
-          <pre className='image-link-box'>{this.state.uploaded_uri}</pre>
+          <p>Moment saved!</p>
+          <p>Go to <Link to="/my-wall">My Wall</Link> to view all posted moments</p>
         </div>
       );
+    }else if (this.state.uploadStatus==='failed'){
+      uploaded = (
+        <div>
+          <p>Moment submission failed!</p>
+        </div>
+      );      
     }
 
     if (this.state.processing) {
-      processing = "Processing image, hang tight";
+      processing = <p>Processing, hang tight</p>;
     }
 
     return (
       <div className='row'>
         <div className='col-sm-12'>
-          <label>Upload an image</label>
-          <form onSubmit={this.handleSubmit} encType="multipart/form-data">
+          <form onSubmit={this.handleSubmit}>
+            <label>When did you completed this?</label>
+            <input 
+              type="date" 
+              value={this.state.time}
+              onChange={e=>this.setTime(e.target.value)}
+            />
+            <label>Write a comment: </label>
+            <textarea 
+              placeholder="write a short story of what you want to keep" 
+              value={this.state.text}
+              onChange={e=>this.setText(e.target.value)}
+            />
+            <label>Upload an photo (limit 1 photo): </label>
             <input type="file" onChange={this.handleFile} />
-            <input disabled={this.state.processing} className='btn btn-primary' type="submit" value="Upload" />
+            <input disabled={this.state.processing} className='btn btn-primary' type="submit" value="Save the moment!" />
             {processing}
           </form>
           {uploaded}
+          <pre></pre>
         </div>
       </div>
     );
@@ -103,3 +133,13 @@ export class ImageUploader extends React.Component {
 }
 
 export default connect()(ImageUploader);
+
+
+function formatDate(date){
+  // input date object, output "yyyy-mm-dd" string
+  let month=date.getMonth()+1;
+  let monthStr=month<10?'0'+month:month;
+  let currD=date.getDate()+1;
+  const res=date.getFullYear()+'-'+monthStr+'-'+currD;
+  return res;
+}

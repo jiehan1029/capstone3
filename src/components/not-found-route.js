@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-export export function NotFoundRoute(props) {
+export default function NotFoundRoute(props) {
   return (
     <section>
       <h2>Page Not Found</h2>
