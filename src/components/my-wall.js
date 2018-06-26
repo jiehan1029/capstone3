@@ -1,43 +1,36 @@
-// TO EDIT!!!
-
-
-
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link, Redirect} from 'react-router-dom';
 
-import './landing-page.css';
+import MomentCollection from 'moment-collection';
 
-import LoginForm from './login-form';
-
-export function LandingPage(props) {
-  // If we are logged in redirect straight to the user's dashboard
-  if (props.loggedIn) {
-      return <Redirect to="/dashboard" />;
-  }  
+export class MyWall extends React.Component{
+  const Posts=this.props.records.map((record,index)=>(
+    <li key={index}>
+      <MomentCollection record={record}/>
+    </li>
+  ));
   return (
     <section>
-      <section className='description-section'>
-        <h2>Summer is here!</h2>
-        <p>Let your kids checkout their summer buckets for fun activities that engage them all summer long!</p>
-        <p>Create an account or login with <strong>demoUser</strong> and <strong>demoPassword</strong> to: </p>    
-        <ul>
-          <li>Add your favorite activity *ticket* into the bucket</li>
-          <li>View all tickets you created, pick one to do, or</li>
-          <li>Let the app pick a ticket for you, randomly</li>
-          <li>Log all tickets you completed to create a collection full of fun memories!</li>
-        </ul>
-      </section>
-      <section className='login-section'>
-        <LoginForm />
-        <Link to="/register">Register</Link>
-      </section>      
+      <header>
+        <h2>My Wall</h2>
+        <p>See all the moments posted here</p>
+      </header>
+      <div>
+        <label>Sort by</label>
+        <select>
+          <option value='ticketAToZ'>Activity: A to Z</option>
+          <option value='dateNewToOld'>Date: newest to oldest</option>
+          <option value='dateOldToNew'>Date: oldest to newest</option>
+        </select>
+    </div>
+      {Posts}
     </section>
   );
 }
 
 const mapStateToProps = state => ({
+    records: state.protectedData:myRecords,
     loggedIn: state.auth.currentUser !== null
 });
 
-export default connect(mapStateToProps)(LandingPage);
+export default connect(mapStateToProps)(MyWall);
