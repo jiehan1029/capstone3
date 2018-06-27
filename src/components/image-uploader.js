@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {uploadImage} from '../actions/protected-data';
+import {dateToStr} from '../utils/utilities';
 
 export class ImageUploader extends React.Component {
   constructor(props) {
@@ -10,23 +11,29 @@ export class ImageUploader extends React.Component {
     this.state = {
       uploadStatus: null,
       processing: false,
-      text:'',
-      time:formatDate(new Date())
+      comment:'',
+      date:dateToStr(new Date())
     }
-
-    this.handleFile=this.handleFile.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleFormChange=this.handleFormChange.bind(this);
   }
 
-  setText(text){
+  setComment(comment){
     this.setState({
-      text
+      comment
     })
   }
 
-  setTime(time){
+  setDate(date){
     this.setState({
-      time
+      date
+    })
+  }
+
+  handleFormChange(){
+    this.setState({
+      uploadStatus:null,
+      processing:false
     })
   }
 
@@ -35,22 +42,28 @@ export class ImageUploader extends React.Component {
     this.setState({
       processing: true
     });
-    const data = {
-        ticketId: this.props.ticketId,
-        data_uri: this.state.data_uri,
-        text:this.state.text,
-        time:this.state.time
-    };
+
+    const data = new FormData(e.target);
+    data.append("ticketId",`${this.props.ticketId}`);
+    data.append("ticketName",`${this.props.ticketName}`);
+
     return this.props.dispatch(uploadImage(data))
-    .then((data)=>{
+    .then(()=>{
       console.log('moment/image upload completed!');
-      console.log(data);
-      this.setState({
-        processing:false,
-        uploadStatus: "success",
-        text:'',
-        time:formatDate(new Date())
-      });
+      console.log(this.props.fetchStatus);
+      if(this.props.fetchStatus==='success'){
+        this.setState({
+          processing:false,
+          uploadStatus: "success",
+          comment:'',
+          date:dateToStr(new Date())
+        });
+      }else{
+        this.setState({
+          processing:false,
+          uploadStatus: "failed"
+        });
+      }
     })
     .catch(err=>{
       console.error(err);
@@ -59,25 +72,6 @@ export class ImageUploader extends React.Component {
         uploadStatus: "failed"
       });
     });
-  }
-
-  handleFile(e) {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-
-    this.setState({
-      uploadStatus: ""
-    });
-
-    reader.onload = (upload) => {
-      this.setState({
-        data_uri: upload.target.result,
-        filename: file.name,
-        filetype: file.type
-      });
-    };
-
-    reader.readAsDataURL(file);
   }
 
   render() {
@@ -94,7 +88,7 @@ export class ImageUploader extends React.Component {
     }else if (this.state.uploadStatus==='failed'){
       uploaded = (
         <div>
-          <p>Moment submission failed!</p>
+          <p>Moment submission failed. There may be a server error</p>
         </div>
       );      
     }
@@ -104,42 +98,46 @@ export class ImageUploader extends React.Component {
     }
 
     return (
-      <div className='row'>
-        <div className='col-sm-12'>
-          <form onSubmit={this.handleSubmit}>
-            <label>When did you completed this?</label>
-            <input 
-              type="date" 
-              value={this.state.time}
-              onChange={e=>this.setTime(e.target.value)}
-            />
-            <label>Write a comment: </label>
-            <textarea 
-              placeholder="write a short story of what you want to keep" 
-              value={this.state.text}
-              onChange={e=>this.setText(e.target.value)}
-            />
-            <label>Upload an photo (limit 1 photo): </label>
-            <input type="file" onChange={this.handleFile} />
-            <input disabled={this.state.processing} className='btn btn-primary' type="submit" value="Save the moment!" />
-            {processing}
-          </form>
-          {uploaded}
-          <pre></pre>
-        </div>
+      <div>
+        <form onSubmit={e=>this.handleSubmit(e)} onChange={()=>this.handleFormChange()}>
+          <label htmlFor="input-date">Date: </label>
+          <input
+            id="input-date"
+            name="date" 
+            type="date" 
+            value={this.state.date}
+            onChange={e=>this.setDate(e.target.value)}
+          />
+          <label htmlFor="input-file">upload photo(s) - use ctrl to select multiple photos </label>
+          <input
+            id="input-file" 
+            name="file"
+            type="file"
+            multiple="multiple" 
+          />
+          <label htmlFor="input-comment">comment: </label>
+          <textarea
+            id="input-comment"
+            name="comment"
+            placeholder="write a short story of what you want to keep" 
+            value={this.state.comment}
+            onChange={e=>this.setComment(e.target.value)}
+          />            
+          <input 
+            disabled={this.state.processing} 
+            type="submit" 
+            value="Save the moment!" 
+          />
+        </form>
+        {processing}
+        {uploaded}
       </div>
     );
   }
 }
 
-export default connect()(ImageUploader);
+const mapStateToProps = state => ({
+    fetchStatus: !state.protectedData.error?'success':'error'
+});
 
-
-function formatDate(date){
-  // input date object, output "yyyy-mm-dd" string
-  let month=date.getMonth()+1;
-  let monthStr=month<10?'0'+month:month;
-  let currD=date.getDate()+1;
-  const res=date.getFullYear()+'-'+monthStr+'-'+currD;
-  return res;
-}
+export default connect(mapStateToProps)(ImageUploader);

@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Lightbox from 'react-images';
 
-export class MomentCollection extends React.Component{
+export default class MomentCollection extends React.Component{
   constructor(props){
     super(props);
     this.state={
@@ -25,9 +25,9 @@ export class MomentCollection extends React.Component{
       <div>
         <h3>this.props.what</h3>
         <p>this.props.time</p>
-        <p>contains {this.props.images.length} photos</p>
+        <p>contains {this.props.records.length} photos</p>
         <Lightbox
-          images={{this.props.images}}
+          images={this.props.records.imageUrl.src}
           isOpen={this.state.lightboxIsOpen}
           onClickPrev={this.gotoPrevious}
           onClickNext={this.gotoNext}
@@ -38,8 +38,3 @@ export class MomentCollection extends React.Component{
   }
 }
 
-const mapStateToProps = state => ({
-    records: state.protectedData:myRecords
-});
-
-export default connect(mapStateToProps)(MomentCollection);

@@ -177,7 +177,9 @@ export class Tickets extends React.Component {
 				style={customStyles}
 				contentLabel="post a moment dialogue"
 			>
-				<ImageUploader ticketId={this.state.currTicket}/>
+				<ImageUploader 
+					ticketId={this.state.currTicket}
+					ticketName={this.state.currTicketName}/>
 				<button onClick={this.handleCloseModal}>Close</button>
 			</ReactModal>
 

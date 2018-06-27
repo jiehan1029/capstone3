@@ -38,6 +38,7 @@ export const fetchMyBucket = () => (dispatch, getState) => {
 };
 
 export const fetchMyWall = () => (dispatch, getState) => {
+  console.log('in fetch my wall function')
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/my-wall`, {
     method: 'GET',
@@ -46,8 +47,11 @@ export const fetchMyWall = () => (dispatch, getState) => {
     }
   })
   .then(res => normalizeResponseErrors(res))
-  .then((res) => {res.json()})
-  .then(({data}) => {
+  .then((res) => {
+    return res.json()
+  })
+  .then(data => {
+    console.log('my wall data=',data)
     dispatch(fetchMyWallSuccess(data));})
   .catch(err => {
     dispatch(fetchProtectedDataError(err));
@@ -122,22 +126,21 @@ export const editTicket= data => (dispatch,getState) =>{
 
 export const uploadImage = data => (dispatch,getState) => {
   const authToken = getState().auth.authToken;
-  return fetch(`${API_BASE_URL}/image`, {
+  return fetch(`${API_BASE_URL}/image/ticket/${data.get('ticketId')}`, {
     method: 'POST',
     headers: {
-      'content-type': 'application/json',
       'Authorization': `Bearer ${authToken}`
     },
-    body:JSON.stringify(data)
+    body:data
   })
   .then(res => normalizeResponseErrors(res))   
-  .then(res => res.json())
-  .then(data=>{
-    return data;
+  .then(response=>{
+    console.log(response);
+    console.log(response.json());
+    dispatch(fetchMyWall());
   })
   .catch(err => {
     console.log(err);
-    //dispatch(fetchProtectedDataError(err));
+    dispatch(fetchProtectedDataError(err));
   }); 
-
 }
