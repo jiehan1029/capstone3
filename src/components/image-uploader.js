@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 
 import {uploadImage} from '../actions/protected-data';
 import {dateToStr} from '../utils/utilities';
@@ -82,7 +81,6 @@ export class ImageUploader extends React.Component {
       uploaded = (
         <div>
           <p>Moment saved!</p>
-          <p>Go to <Link to="/my-wall">My Wall</Link> to view all posted moments</p>
         </div>
       );
     }else if (this.state.uploadStatus==='failed'){

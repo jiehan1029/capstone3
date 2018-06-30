@@ -1,0 +1,9 @@
+.moment-collection-card{
+	border:1px solid black;
+	padding:20px;
+}
+
+.img-thumbnail{
+	width:100px;
+	height:auto;
+}

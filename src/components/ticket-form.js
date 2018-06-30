@@ -9,11 +9,11 @@ export default function TicketForm(props) {
 	  >
 	    <fieldset>
 	    <legend>{props.legend}</legend>
-	    <label>What: <br/><input type="text" name="what" required value={props.what} placeholder="pool party"/></label>
+	    <label>What: <br/><input type="text" name="what" required placeholder="pool party"/></label>
 	    <br/>
 	    <label>Type:  
 	      <select name="type">
-	        <option value="un-sorted">unsorted</option>
+	        <option value="unsorted">unsorted</option>
 	        <option value="home">home</option>
 	        <option value="outing">outing</option>
 	      </select>

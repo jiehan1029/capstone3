@@ -20,6 +20,7 @@ export const fetchProtectedDataError = error => ({
 });
 
 export const fetchMyBucket = () => (dispatch, getState) => {
+  console.log('loading my bucket data');
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/my-bucket`, {
     method: 'GET',
@@ -38,7 +39,7 @@ export const fetchMyBucket = () => (dispatch, getState) => {
 };
 
 export const fetchMyWall = () => (dispatch, getState) => {
-  console.log('in fetch my wall function')
+  console.log('loading my wall data');
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/my-wall`, {
     method: 'GET',
@@ -51,7 +52,6 @@ export const fetchMyWall = () => (dispatch, getState) => {
     return res.json()
   })
   .then(data => {
-    console.log('my wall data=',data)
     dispatch(fetchMyWallSuccess(data));})
   .catch(err => {
     dispatch(fetchProtectedDataError(err));
@@ -126,7 +126,7 @@ export const editTicket= data => (dispatch,getState) =>{
 
 export const uploadImage = data => (dispatch,getState) => {
   const authToken = getState().auth.authToken;
-  return fetch(`${API_BASE_URL}/image/ticket/${data.get('ticketId')}`, {
+  return fetch(`${API_BASE_URL}/my-wall/ticket/${data.get('ticketId')}`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${authToken}`
@@ -135,12 +135,49 @@ export const uploadImage = data => (dispatch,getState) => {
   })
   .then(res => normalizeResponseErrors(res))   
   .then(response=>{
-    console.log(response);
-    console.log(response.json());
+    console.log('photo saved successfully');
     dispatch(fetchMyWall());
   })
   .catch(err => {
     console.log(err);
     dispatch(fetchProtectedDataError(err));
   }); 
+}
+
+export const deleteRecordsCollection = (ticketId,recordId) => (dispatch,getState) =>{
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/my-wall/ticket/${ticketId}/record/${recordId}`,{
+    method:'DELETE',
+    headers: {
+      'Authorization': `Bearer ${authToken}`
+    }
+  })
+  .then(res=>normalizeResponseErrors(res))
+  .then(res=>{
+    console.log('delete record success');
+    dispatch(fetchMyWall());
+  })
+  .catch(err => {
+    console.log(err);
+    dispatch(fetchProtectedDataError(err));
+  });  
+}
+
+export const deleteOnePhoto=imageId=>(dispatch,getState)=>{
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/my-wall/image/${imageId}`,{
+    method:'DELETE',
+    headers: {
+      'Authorization': `Bearer ${authToken}`
+    }
+  })
+  .then(res=>normalizeResponseErrors(res))
+  .then(res=>{
+    console.log('delete single photo success');
+    dispatch(fetchMyWall());
+  })
+  .catch(err => {
+    console.log(err);
+    dispatch(fetchProtectedDataError(err));
+  });   
 }
