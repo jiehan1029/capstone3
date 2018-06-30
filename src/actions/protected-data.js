@@ -20,7 +20,6 @@ export const fetchProtectedDataError = error => ({
 });
 
 export const fetchMyBucket = () => (dispatch, getState) => {
-  console.log('loading my bucket data');
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/my-bucket`, {
     method: 'GET',
@@ -39,7 +38,6 @@ export const fetchMyBucket = () => (dispatch, getState) => {
 };
 
 export const fetchMyWall = () => (dispatch, getState) => {
-  console.log('loading my wall data');
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/my-wall`, {
     method: 'GET',
