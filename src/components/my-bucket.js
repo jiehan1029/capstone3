@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 import requiresLogin from './requires-login';
 import {fetchMyBucket, fetchMyWall} from '../actions/protected-data';
-import {submitNewTicketForm} from '../actions/protected-data';
 import Tickets from './tickets';
 import TypeFilter from './type-filter';
 import TicketForm from './ticket-form';
@@ -17,19 +16,22 @@ export class MyBucket extends React.Component {
     this.state={
       ticketsToRender:[],
       toggleAddNewForm:"hide",
-      formSubmitStatus:""
     };
     // bind callbacks!
     // https://medium.com/@rjun07a/binding-callbacks-in-react-components-9133c0b396c6
-    this.resetFormStatus=this.resetFormStatus.bind(this);
+    //this.resetFormStatus=this.resetFormStatus.bind(this);
+    this.filterByType=this.filterByType.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(fetchMyBucket());
     this.props.dispatch(fetchMyWall());
+  }
+
+  componentWillReceiveProps(nextProps){
     this.setState({
-      ticketsToRender:this.props.tickets
-    })
+      ticketsToRender:nextProps.tickets
+    });
   }
 
   toggleFormDisplay(){
@@ -39,48 +41,29 @@ export class MyBucket extends React.Component {
   }
 
   filterByType(typeArr){
-    let ticketsToRender=[];
-    this.props.tickets.forEach(ticket=>{
-      if(ticket.type in typeArr){
-        ticketsToRender.push(ticket);
+    if(!typeArr.includes('all') && typeArr.length!==0){
+      let ticketsToRenderNew=[];
+      for(let i=0;i<this.props.tickets.length;i++){
+        if(typeArr.indexOf(this.props.tickets[i].type)!==-1){
+          ticketsToRenderNew.push(this.props.tickets[i]);
+        }
       }
-    });
-    this.setState({
-      ticketsToRender
-    })
-  }
-
-  onSubmit(e){
-    e.preventDefault();
-    const data = new FormData(e.target);
-    e.target.reset();
-    return this.props.dispatch(submitNewTicketForm(data))
-    .then(()=>{
-      console.log('submit new ticket form successful!');
       this.setState({
-        formSubmitStatus:"Submitted successfully!"
+        ticketsToRender:ticketsToRenderNew
+      });      
+    }
+    else if(typeArr.includes('all') || typeArr.length===0){
+      this.setState({
+        ticketsToRender:this.props.tickets
       });
-    })
-    .catch(err=>{
-      console.error(err);
-      this.setState({
-        formSubmitStatus:"Submission failed"
-      })
-    });
-  }
-  
-  resetFormStatus(){
-    this.setState({
-      formSubmitStatus:""
-    });
+    }  
   }
 
   render() {
-    
     //must declare a variable instead of using props.tickets directly
     // because when mount the component initially the tickets prop doesn't exist
-    let tickets=this.props.tickets.length>0?this.props.tickets:[];
-    if(tickets!==[]){
+    let tickets=this.state.ticketsToRender;
+    if(tickets.length!==0){
       tickets=tickets.map(ticket=>{
         let times=0;
         for(let i=0;i<this.props.records.length;i++){
@@ -92,7 +75,6 @@ export class MyBucket extends React.Component {
         return ticket;
       });
     } 
-
     return (
       <section className="my-bucket-content">
         <header>
@@ -101,19 +83,17 @@ export class MyBucket extends React.Component {
         </header>
 
         <TypeFilter 
-          filterByTypes={()=>this.filterByType()}/>
+          tickets={this.props.tickets}
+          filterByType={this.filterByType}/>
 
         <button 
           onClick={()=>this.toggleFormDisplay()}
           title="click to toggle"
         >New activity form</button>
 
-        <TicketForm 
-          onSubmit={e=>this.onSubmit(e)}
-          resetFormStatus={this.resetFormStatus}
+        <TicketForm
+          formSubmissionStatus="" 
           classNames={classNames(`${this.state.toggleAddNewForm}`,"form")}
-          legend="Have something in mind?"
-          formSubmitStatus={this.state.formSubmitStatus}
         />
 
         <div className="tickets-container">

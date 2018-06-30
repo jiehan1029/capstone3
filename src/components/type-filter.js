@@ -1,71 +1,56 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {connect} from 'react-redux';
 
-export class TypeFilter extends React.Component{
+export default class TypeFilter extends React.Component{
 	constructor(props){
 		super(props);
-		this.state={
-			selectedTypes:[]
-		};
-		//this.passSelectionToParent=this.passSelectionToParent.bind(this);
+		this.unsortedRef=React.createRef();
+		this.homeRef=React.createRef();
+		this.outingRef=React.createRef();
+		this.allRef=React.createRef();
 	}
-
-	selectType(e){
-		const innerText=ReactDOM.findDOMNode(e.target).innerText;
-		const index=innerText.indexOf('(');
-		const type=innerText.substr(0,index).trim();
-		console.log('select ',type);
-		let types=this.state.selectedTypes;
-		types.push(type);
-		this.setState({
-			selectedTypes:types
-		})
-	}
-
-	passSelectionToParent(){
-		console.log(this.props);
-		this.props.filterByType();
-	}
-
-	render(){
-		let type={
-			unsorted:[],
-			home:[],
-			outing:[]
-		}
-		this.props.tickets.forEach(ticket=>{
-			if(ticket.type==='unsorted'){
-				type.unsorted.push(ticket);
+	passSelectionToParent(e){
+		e.preventDefault();
+		let typeArr=[];
+		let types=[this.unsortedRef,this.homeRef,this.outingRef,this.allRef];
+		types.map(type=>{
+			if(type.current.checked){
+				typeArr.push(type.current.value);
 			}
-			else if(ticket.type==='home'){
-				type.home.push(ticket);
-			}
-			else if(ticket.type==='outing'){
-				type.outing.push(ticket);
-			}
+			return type;
 		});
-		const categories=(
-			<ul>
-				<li><button onClick={e=>this.selectType(e)}>Unsorted <span>({type.unsorted.length})</span></button></li>
-				<li><button onClick={e=>this.selectType(e)}>Home <span>({type.home.length})</span></button></li>
-				<li><button onClick={e=>this.selectType(e)}>Outing <span>({type.outing.length})</span></button></li>
-			</ul>
-		);
-		return(
-			<div>
-				{categories}
-				<button onClick={this.passSelectionToParent()}>Filter by selected categories</button>
-			</div>
-		);
+		this.props.filterByType(typeArr);
 	}
+	render(){
+	let type={
+		unsorted:[],
+		home:[],
+		outing:[],
+		all:[]
+	}
+	this.props.tickets.forEach(ticket=>{
+		if(ticket.type==='unsorted'){
+			type.unsorted.push(ticket);
+		}
+		else if(ticket.type==='home'){
+			type.home.push(ticket);
+		}
+		else if(ticket.type==='outing'){
+			type.outing.push(ticket);
+		}
+		type.all.push(ticket);
+	});
+	return(
+		<form>
+			<label><input ref={this.unsortedRef} type="checkbox" value='unsorted' name='unsorted' />Unsorted <span>({type.unsorted.length})</span></label>
+			<label><input ref={this.homeRef} type="checkbox" value='home' name='home' />Home <span>({type.home.length})</span></label>
+			<label><input ref={this.outingRef} type="checkbox" value='outing' name='outing' />Outing <span>({type.outing.length})</span></label>
+			<label><input ref={this.allRef} type="checkbox" value='all' name='all' />All <span>({type.all.length})</span></label>
+			<br />
+			<button onClick={e=>this.passSelectionToParent(e)}>Filter by selected categories</button>
+		</form>
+	);
+}
 }
 
-const mapStateToProps = state => {
-  return {
-    tickets: state.protectedData.myBucketData
-  };
-};
 
-export default connect(mapStateToProps)(TypeFilter);
 
