@@ -171,7 +171,6 @@ export const deleteOnePhoto=imageId=>(dispatch,getState)=>{
   })
   .then(res=>normalizeResponseErrors(res))
   .then(res=>{
-    console.log('delete single photo success');
     dispatch(fetchMyWall());
   })
   .catch(err => {

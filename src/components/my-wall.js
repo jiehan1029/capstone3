@@ -24,6 +24,14 @@ export class MyWall extends React.Component{
     );
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.records){
+      this.setState({
+        recordsToRender:nextProps.records
+      });
+    }
+  }
+
   sortRecords(order){
     let sortedRecords=this.state.recordsToRender;
     if(order==='dateNewToOld'){

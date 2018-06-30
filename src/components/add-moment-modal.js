@@ -43,7 +43,9 @@ export default class AddMomentModal extends React.Component{
 			>
 				<ImageUploader 
 					ticketId={this.props.currTicket}
-					ticketName={this.props.currTicketName}/>
+					ticketName={this.props.currTicketName}
+					collectionDate={this.props.collectionDate}
+				/>
 				<button onClick={this.closeModal}>Close</button>
 			</ReactModal>
 		);

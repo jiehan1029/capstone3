@@ -11,7 +11,7 @@ export class ImageUploader extends React.Component {
       uploadStatus: null,
       processing: false,
       comment:'',
-      date:dateToStr(new Date())
+      date:this.props.collectionDate
     }
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleFormChange=this.handleFormChange.bind(this);
@@ -94,7 +94,6 @@ export class ImageUploader extends React.Component {
     if (this.state.processing) {
       processing = <p>Processing, hang tight</p>;
     }
-
     return (
       <div>
         <form onSubmit={e=>this.handleSubmit(e)} onChange={()=>this.handleFormChange()}>
