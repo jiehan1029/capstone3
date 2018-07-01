@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 
-import './random-pick-modal.css';
+import { Card, CardHeader, CardBody } from 'reactstrap';
+import './main.css';
 
 const customStyles={
 	content:{
@@ -42,14 +43,24 @@ export default class RandomPickModal extends React.Component{
 		}else{
 			modalContent=(
 				<div>
-					<h3>{this.state.pick.what}</h3>
-					<p>{this.state.pick.where}</p>
-					<p>{this.state.pick.type}</p>
-					<p>{this.state.pick.details}</p>
+					<h3>Your lucky ticket today is...</h3>
+					<hr />
+
+				<Card>
+					<CardHeader className={`ticket-${this.props.pick.type}`}>
+						{this.props.pick.what}
+						<div className="ticket-type">{this.props.pick.type}</div>
+					</CardHeader>
+					<CardBody>
+						<div className="ticket-where">{this.props.pick.where}</div>
+						<div className="ticket-details">{this.props.pick.details}</div>
+					</CardBody>
+				</Card>
 				</div>
 			);
 		}
 		return(
+			<div className="modal-div">
 			<ReactModal
 				isOpen={this.state.showModal}
 				onRequestClose={this.closeModal}
@@ -60,6 +71,7 @@ export default class RandomPickModal extends React.Component{
 				<br />
 				<button onClick={this.closeModal}>Close</button>
 			</ReactModal>
+			</div>
 		);
 	}
 }

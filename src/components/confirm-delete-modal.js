@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import {deleteTicket} from '../actions/protected-data';
 
+import { Button } from 'reactstrap';
+
 const customStyles={
 	content:{
 		top:'50%',
@@ -15,7 +17,6 @@ const customStyles={
 	}
 }
 ReactModal.setAppElement('#root');
-
 
 export class ConfirmDeleteModal extends React.Component{
 	constructor(props){
@@ -51,20 +52,20 @@ export class ConfirmDeleteModal extends React.Component{
 		  >
 		  	Delete this activity?
 		  	<br />
-		  	<button onClick={this.deleteConfirm}>Confirm Deletion</button>
+		  	<Button outline onClick={this.deleteConfirm}>Confirm Deletion</Button>
 		  	<br />
-		  	<button onClick={this.closeModal}>Cancel</button>
+		  	<Button outline onClick={this.closeModal}>Cancel</Button>
 		  </ReactModal>
 		 );
 
 		return(
-			<div>
-			<button 
-				onClick={this.openModal} 
-				title={this.props.btnTitle}
-			>{this.props.btnText}
-			</button>
-			{modal}
+			<div className="modal-div">
+				<Button outline
+					onClick={this.openModal} 
+					title={this.props.btnTitle}
+				>{this.props.btnText}
+				</Button>
+				{modal}
 			</div>
 		)
 	}

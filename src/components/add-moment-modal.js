@@ -2,6 +2,8 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import ImageUploader from './image-uploader';
 
+import { Button } from 'reactstrap';
+
 const customStyles={
 	content:{
 		top:'50%',
@@ -41,6 +43,8 @@ export default class AddMomentModal extends React.Component{
 				style={customStyles}
 				contentLabel="post a moment dialogue"
 			>
+				<h3>Add a moment for {this.props.currTicketName}</h3>
+				<hr />
 				<ImageUploader 
 					ticketId={this.props.currTicket}
 					ticketName={this.props.currTicketName}
@@ -51,12 +55,12 @@ export default class AddMomentModal extends React.Component{
 		);
 
 		return(
-			<div>
-			<button 
+			<div className="modal-div">
+			<Button outline
 				onClick={this.openModal} 
 				title={this.props.btnTitle}
 			>{this.props.btnText}
-			</button>
+			</Button>
 			{modal}
 			</div>
 		)

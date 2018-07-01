@@ -1,30 +1,34 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import classNames from 'classnames';
 
 import AddMomentModal from './add-moment-modal';
 import ConfirmDeleteModal from './confirm-delete-modal';
 import EditTicketModal from './edit-ticket-modal';
 
-import './tickets.css';
+import { CardColumns, Card, CardHeader, CardBody } from 'reactstrap';
+import './main.css';
 
 export default function Tickets(props){
 	const tickets = props.tickets.map((ticket,index)=>(
-		<li 
-			className={classNames(`${ticket.type}`,"ticket")} 
+		<Card 
 			key={index}
 			data-ticketid={ticket._id}
 		>
-			<h3 className="ticket-what">{ticket.what}</h3>
-			<div className="ticket-type">{ticket.type}</div>
-			<div className="ticket-where">{ticket.where}</div>
-			<div className="ticket-completeTimes">
-				You've done it {ticket.completeTimes} times
-				<br/>
-				<span><Link to="/my-wall">View these moments in my wall</Link></span>
-			</div>
-			<div className="ticket-details">{ticket.details}</div>
-			
+			<CardHeader className={`ticket-${ticket.type}`}>
+				{ticket.what}
+				<div className="ticket-type">{ticket.type}</div>
+			</CardHeader>
+			<CardBody>
+				<div className="ticket-where">{ticket.where}</div>
+				<div className="ticket-details">{ticket.details}</div>
+				<div className="ticket-completeTimes">
+					You have {ticket.completeTimes} moments of it, 
+					<span><Link to="/my-wall"> view them on my wall</Link>, or</span>
+				</div>
+			</CardBody>
+
+			<div className='modal-btns'>
+
 			<AddMomentModal 
 				btnTitle="you've done it? post a moment to your wall!"
 				btnText="post a moment"
@@ -45,14 +49,14 @@ export default function Tickets(props){
 				ticketId={ticket._id}
 			/>
 
-		</li>));
+			</div>
+
+		</Card>));
 
   return (
-  	<div>
-	    <ul className="ticket-list">
-	    	{tickets}
-	    </ul>
-    </div>
+    <CardColumns className="ticket-list">
+    	{tickets}
+    </CardColumns>
   );
 }
 

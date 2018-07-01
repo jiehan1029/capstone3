@@ -9,6 +9,7 @@ import TypeFilter from './type-filter';
 import TicketForm from './ticket-form';
 import RandomPickModal from './random-pick-modal';
 
+import { Button } from 'react-bootstrap';
 import './main.css';
 
 export class MyBucket extends React.Component {
@@ -120,19 +121,18 @@ export class MyBucket extends React.Component {
           randomPick={this.randomPick}
         />
 
-        <button 
+        <Button 
           onClick={()=>this.toggleFormDisplay()}
           title="click to toggle"
-        >New activity form</button>
+        >Click to add new activity</Button>
 
         <TicketForm
+          legend="Having something in mind?"
           formSubmissionStatus="" 
-          classNames={classNames(`${this.state.toggleAddNewForm}`,"form")}
+          classNames={classNames(`${this.state.toggleAddNewForm}`,"form","new-ticket-form")}
         />
 
-        <div className="tickets-container">
-          <Tickets tickets={this.state.ticketsToRender} />
-        </div>
+        <Tickets tickets={this.state.ticketsToRender} />
 
         <RandomPickModal 
           showModal={this.state.showRandomPickModal}

@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {uploadImage} from '../actions/protected-data';
 import {dateToStr} from '../utils/utilities';
 
+import { Button, FormGroup, Input, Label, FormText } from 'reactstrap';
+
 export class ImageUploader extends React.Component {
   constructor(props) {
     super(props);
@@ -85,46 +87,48 @@ export class ImageUploader extends React.Component {
       );
     }else if (this.state.uploadStatus==='failed'){
       uploaded = (
-        <div>
-          <p>Moment submission failed. There may be a server error</p>
-        </div>
+        <FormText>Moment submission failed. There may be a server error</FormText>
       );      
     }
 
     if (this.state.processing) {
-      processing = <p>Processing, hang tight</p>;
+      processing = <FormText>Processing, hang tight</FormText>;
     }
     return (
       <div>
         <form onSubmit={e=>this.handleSubmit(e)} onChange={()=>this.handleFormChange()}>
-          <label htmlFor="input-date">Date: </label>
-          <input
+          <FormGroup>
+          <Label htmlFor="input-date">Date: </Label>
+          <Input
             id="input-date"
             name="date" 
             type="date" 
             value={this.state.date}
+            required
             onChange={e=>this.setDate(e.target.value)}
           />
-          <label htmlFor="input-file">upload photo(s) - use ctrl to select multiple photos </label>
-          <input
+          </FormGroup>
+          <FormGroup>
+          <Label htmlFor="input-file">select a photo</Label>
+          <Input
             id="input-file" 
             name="file"
             type="file"
-            multiple="multiple" 
           />
-          <label htmlFor="input-comment">comment: </label>
-          <textarea
+          </FormGroup>
+          <FormGroup>
+          <Label htmlFor="input-comment">comment: </Label>
+          <Input type="textarea"
             id="input-comment"
             name="comment"
             placeholder="write a short story of what you want to keep" 
             value={this.state.comment}
             onChange={e=>this.setComment(e.target.value)}
-          />            
-          <input 
-            disabled={this.state.processing} 
-            type="submit" 
-            value="Save the moment!" 
           />
+          </FormGroup>            
+          <Button 
+            disabled={this.state.processing} 
+            type="submit">Save the moment!</Button>
         </form>
         {processing}
         {uploaded}

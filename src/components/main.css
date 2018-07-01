@@ -61,7 +61,7 @@ form input{
 }
 
 .remainder{
-	font-size: 0.8rem;
+	font-size: 1rem;
 	color:red;
 }
 
@@ -69,6 +69,25 @@ form input{
 	display: none
 }
 
+.ticket-unsorted{
+	background-color: #BEA5AB;
+	border:1px solid #BEA5AB;
+}
+
+.ticket-home{
+	background-color:#F86C9B;
+	border: 1px solid #F86C9B;
+}
+
+.ticket-outing{
+	background-color: #00B48C;
+	border:1px solid #00B48C;
+}
+
+.ticket-all{
+	background-color: #007D5A;
+	border: 1px solid #007D5A;
+}
 
 /* header, nav and footer */
 .banner{
@@ -147,6 +166,8 @@ footer{
   text-align:center;
   padding-bottom: 10px;
   margin-top:0px;
+	background-image: url("http://res.cloudinary.com/rollercoaster/image/upload/v1530407579/blackboard.jpg");
+	background-repeat: repeat;  
 }
 
 footer a{
@@ -196,14 +217,42 @@ footer a{
 	color:white;
 }
 
+.my-bucket-page > button{
+	display: block;
+	width:300px;
+	margin-top:10px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	padding:5px;
+}
+
 /* type-filter (inside my-bucket-page) */
+.type-filter-form{
+	background-color: #E2D7FF;
+	border-radius: 5px;
+}
+
+@media screen and (min-width:600px){
+	.type-filter-form{
+		width:90%;
+	}
+}
+
+.type-filter-form button{
+	margin-bottom: 20px;
+}
+
 .type-filter-form .flex-container div{
 	width:140px;
 	height:80px;
 	text-align: center;
-	border:1px solid black;
-	border-radius: 20px;
+	border-radius: 10px;
 	margin:5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .type-filter-form .flex-container{
@@ -211,3 +260,97 @@ footer a{
 	flex-direction: row;
 	justify-content: center;
 }
+
+/* new-ticket-form (inside my-bucket-page) */
+.new-ticket-form select{
+	margin-bottom:15px;
+}
+
+.new-ticket-form .form-control{
+	width:190px;
+}
+
+.new-ticket-form{
+	margin-bottom: 10px
+}
+
+@media screen and (min-width: 600px){
+	.new-ticket-form{
+		width:90%;
+	}
+}
+
+
+/* tickets (inside my-bucket-page) */
+.ticket-list{
+	margin-left:10px;
+	margin-right: 10px
+}
+
+.card .ticket-type{
+	text-align: right;
+}
+
+.ticket-details{
+	margin-bottom:5px;
+}
+
+.modal-btns{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+
+/* modals */
+.modal-div{
+	text-align: center;
+	margin:5px;
+}
+
+.ReactModal__Content{
+	text-align: center;
+	width:80%;
+}
+
+.ReactModal__Content button{
+	display: inline-block;
+	margin-top:10px;
+	margin-left:5px;
+	margin-right:5px;
+}
+
+/* random-pick (in my-bucket-page) */
+/* CSS spinner from https://loading.io/css/*/
+.lds-circle {
+  display: inline-block;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border-radius: 50%;
+  background: #cef;
+  animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes lds-circle {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+
+
+
+
+
+
+
+

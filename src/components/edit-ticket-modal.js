@@ -5,6 +5,8 @@ import TicketForm from './ticket-form';
 
 import {editTicket} from '../actions/protected-data';
 
+import { Button } from 'reactstrap';
+
 const customStyles={
 	content:{
 		top:'50%',
@@ -90,12 +92,12 @@ export class EditTicketModal extends React.Component{
 		 );
 
 		return(
-			<div>
-			<button 
+			<div className="modal-div">
+			<Button outline
 				onClick={this.openModal} 
 				title={this.props.btnTitle}
 			>{this.props.btnText}
-			</button>
+			</Button>
 			{modal}
 			</div>
 		)
