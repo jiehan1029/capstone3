@@ -3,6 +3,7 @@ export const dateToStr=function(date){
   let month=date.getMonth()+1;
   let monthStr=month<10?'0'+month:month;
   let currD=date.getDate();
-  const res=date.getFullYear()+'-'+monthStr+'-'+currD;
+  let dStr=currD<10?'0'+currD:currD;
+  const res=date.getFullYear()+'-'+monthStr+'-'+dStr;
   return res;
 }

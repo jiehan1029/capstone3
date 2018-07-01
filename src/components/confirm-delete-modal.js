@@ -50,9 +50,9 @@ export class ConfirmDeleteModal extends React.Component{
 		  	style={customStyles}
 		  	contentLabel="confirm deletion dialogue"
 		  >
-		  	Delete this activity?
+		  	Confirm Deletion?
 		  	<br />
-		  	<Button outline onClick={this.deleteConfirm}>Confirm Deletion</Button>
+		  	<Button outline onClick={this.deleteConfirm}>Yes, delete</Button>
 		  	<br />
 		  	<Button outline onClick={this.closeModal}>Cancel</Button>
 		  </ReactModal>

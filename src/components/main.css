@@ -347,6 +347,70 @@ footer a{
   }
 }
 
+/* my-wall-page */
+.my-wall-page{
+	width:100%;
+	margin:0px;
+	background-image: url("http://res.cloudinary.com/rollercoaster/image/upload/v1530407580/wall_background.jpg");
+	background-repeat: repeat;
+	background-size: contain;
+}
+
+.my-wall-page::before{
+	content: "";
+	display:table;
+}
+
+.my-wall-page header{
+	color:white;
+}
+
+.wall-no-record{
+	background-color: white;
+	padding:10px;
+	font-size:1.5rem;
+}
+
+/* moment-collection (inside my-wall-page) */
+/*.moment-collection-card{
+	border:1px solid black;
+	padding:20px;
+}*/
+
+.moment-collection-card .card-header{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.img-thumbnail{
+	width:100px;
+	height:auto;
+}
+
+.moment-collection-btn-group{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.moment-collection-btn-group button{
+	margin:5px;
+}
+
+.moment-collection-btn-group .modal-div button{
+	margin:0px;
+}
+
+.collection-photo-container-multi{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.collection-photo-container-single{
+	padding:5px;
+}
 
 
 

@@ -1,11 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import {fetchMyWall} from '../actions/protected-data';
 
 import requiresLogin from './requires-login';
 import MomentCollection from './moment-collection';
 import SortRecords from './sort-records';
+
+import { CardColumns } from 'reactstrap';
+import './main.css';
 
 export class MyWall extends React.Component{
   constructor(props){
@@ -54,22 +58,38 @@ export class MyWall extends React.Component{
   }
 
   render(){
-    const posts=this.state.recordsToRender.map((record,index)=>(
-      <li key={index}>
-        <MomentCollection records={record}/>
-      </li>
-    ));
-    return (
-      <section>
-        <header>
-          <h2>My Wall</h2>
-          <p>See all the moments posted here</p>
-        </header>
-        <SortRecords sortRecords={e=>this.sortRecords(e)}
-        />
-        {posts}
-      </section>
-    );
+
+    if(this.state.recordsToRender.length===0){
+      return(
+        <section className="my-wall-page">
+          <header>
+            <h2>My Wall</h2>
+            <p>See all the moments posted here</p>
+          </header>
+          <p className="wall-no-record">Looks like you have no moments posted. Pick one activity from <Link to="/my-bucket">My Bucket</Link> and start creating memorable moments!</p>
+        </section>
+      );
+    }
+    else{
+      const posts=this.state.recordsToRender.map((record,index)=>(
+        <MomentCollection records={record} key={index} />
+      ));
+      return (
+        <section className="my-wall-page">
+          <header>
+            <h2>My Wall</h2>
+            <p>See all the moments posted here</p>
+          </header>
+
+          <SortRecords sortRecords={e=>this.sortRecords(e)}
+          />
+
+          <CardColumns>
+            {posts}
+          </CardColumns>
+        </section>
+      );
+    }
   }
 }
 
