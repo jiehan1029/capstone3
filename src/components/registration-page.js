@@ -11,11 +11,14 @@ export function RegistrationPage(props) {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <div className="home">
-      <h2>Register for a Summer Bucket</h2>
+    <section className="registration-page">
+      <header>
+        <h2>Register</h2>
+      </header>
+      <p>Register an account create your bucket!</p>
       <RegistrationForm />
-      <Link to="/">Login</Link>
-    </div>
+      <p>Already have an account? <Link to="/">Login here</Link></p>
+    </section>
   );
 }
 

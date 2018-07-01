@@ -9,7 +9,7 @@ import TypeFilter from './type-filter';
 import TicketForm from './ticket-form';
 import RandomPickModal from './random-pick-modal';
 
-import './my-bucket.css';
+import './main.css';
 
 export class MyBucket extends React.Component {
   constructor(props){
@@ -108,7 +108,7 @@ export class MyBucket extends React.Component {
       });
     } 
     return (
-      <section className="my-bucket-content">
+      <section className="my-bucket-page">
         <header>
           <h2>My Bucket</h2>
           <p>What fun stuff to do?</p>

@@ -6,5 +6,4 @@ export function Dashboard(props){
   return <Redirect to="/my-bucket" />;
 }
 
-
 export default requiresLogin()(Dashboard);

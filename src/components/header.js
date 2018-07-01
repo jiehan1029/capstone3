@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import Nav from './nav';
 
-import './header.css';
+import './main.css';
 
 export function Header(props) {
   // only display navbar when logged in
@@ -12,15 +12,15 @@ export function Header(props) {
     navbar=<Nav />
   }
   return (
-    <header>
+    <header className="banner">
       <h1>Summer Bucket</h1>
       {navbar}    
-    </header>
+    </header>   
   );
 }
 
 const mapStateToProps = state => ({
-    loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null
 });
 
 export default connect(mapStateToProps)(Header);

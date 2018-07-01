@@ -1,5 +1,8 @@
 import React from 'react';
 import {Field, reduxForm, focus} from 'redux-form';
+
+import { FormGroup, ControlLabel, Button } from 'react-bootstrap';
+
 import {registerUser} from '../actions/users';
 import {login} from '../actions/auth';
 import Input from './input';
@@ -19,36 +22,38 @@ export class RegistrationForm extends React.Component {
   render() {
     return (
       <form
-        className="login-form"
+        className="registration-form"
         onSubmit={this.props.handleSubmit(values =>
           this.onSubmit(values)
       )}>
-        <label htmlFor="username">Username</label>
+        <FormGroup>
+        <ControlLabel htmlFor="username">Username</ControlLabel>
         <Field
           component={Input}
           type="text"
           name="username"
           validate={[required, nonEmpty, isTrimmed]}
         />
-        <label htmlFor="password">Password</label>
+        <ControlLabel htmlFor="password">Password</ControlLabel>
         <Field
           component={Input}
           type="password"
           name="password"
           validate={[required, passwordLength, isTrimmed]}
         />
-        <label htmlFor="passwordConfirm">Confirm password</label>
+        <ControlLabel htmlFor="passwordConfirm">Confirm password</ControlLabel>
         <Field
           component={Input}
           type="password"
           name="passwordConfirm"
           validate={[required, nonEmpty, matchesPassword]}
         />
-        <button
+        <Button
           type="submit"
           disabled={this.props.pristine || this.props.submitting}>
           Register
-        </button>
+        </Button>
+      </FormGroup>
       </form>
     );
   }
