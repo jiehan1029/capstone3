@@ -9,7 +9,6 @@ import MomentCollection from './moment-collection';
 import SortRecords from './sort-records';
 
 import { CardColumns } from 'reactstrap';
-import './main.css';
 
 export class MyWall extends React.Component{
   constructor(props){

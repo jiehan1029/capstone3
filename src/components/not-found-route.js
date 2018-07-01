@@ -1,8 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import './main.css';
-
 export default function NotFoundRoute(props) {
   return (
     <section className="not-found-route">

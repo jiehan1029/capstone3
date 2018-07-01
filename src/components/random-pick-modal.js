@@ -2,7 +2,6 @@ import React from 'react';
 import ReactModal from 'react-modal';
 
 import { Card, CardHeader, CardBody } from 'reactstrap';
-import './main.css';
 
 const customStyles={
 	content:{

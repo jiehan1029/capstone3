@@ -10,7 +10,6 @@ import TicketForm from './ticket-form';
 import RandomPickModal from './random-pick-modal';
 
 import { Button } from 'react-bootstrap';
-import './main.css';
 
 export class MyBucket extends React.Component {
   constructor(props){

@@ -2,10 +2,6 @@
 /* blackboard background <a href="https://www.freepik.com/free-vector/different-school-elements-in-chalkboard-style_1914483.htm">Designed by Freepik</a>*/
 /* wall background <a href="https://www.freepik.com/free-vector/different-school-elements-in-chalkboard-style_1914483.htm">Designed by Freepik</a>*/
 
-
-/* default is for small screen width<=600px */
-/* use media query to set larger screen behavior */
-
 /* general, used across the whole app */
 .app{
 	width: 100%;

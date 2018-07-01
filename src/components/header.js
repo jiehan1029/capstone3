@@ -3,8 +3,6 @@ import {connect} from 'react-redux';
 
 import Nav from './nav';
 
-import './main.css';
-
 export function Header(props) {
   // only display navbar when logged in
   let navbar;

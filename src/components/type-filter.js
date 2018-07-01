@@ -2,8 +2,6 @@ import React from 'react';
 
 import { ControlLabel, Button, Badge } from 'react-bootstrap';
 
-import './main.css';
-
 export default class TypeFilter extends React.Component{
 	constructor(props){
 		super(props);

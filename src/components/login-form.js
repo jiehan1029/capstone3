@@ -8,8 +8,6 @@ import {required, nonEmpty} from '../validators';
 
 import { FormGroup, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 
-import './main.css';
-
 export class LoginForm extends React.Component {
   onSubmit(values) {
     return this.props.dispatch(login(values.username, values.password));

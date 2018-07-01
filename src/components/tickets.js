@@ -6,7 +6,6 @@ import ConfirmDeleteModal from './confirm-delete-modal';
 import EditTicketModal from './edit-ticket-modal';
 
 import { CardColumns, Card, CardHeader, CardBody } from 'reactstrap';
-import './main.css';
 
 export default function Tickets(props){
 	const tickets = props.tickets.map((ticket,index)=>(

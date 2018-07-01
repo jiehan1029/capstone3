@@ -9,7 +9,6 @@ import RecordCollectionLightbox from './record-collection-lightbox';
 
 import { Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
 import {Glyphicon} from 'react-bootstrap';
-import './main.css';
 
 const customStyles={
   content:{
