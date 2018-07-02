@@ -16,7 +16,9 @@ const customStyles={
 		transform:'translate(-50%,-50%)'
 	}
 }
-ReactModal.setAppElement('#root');
+//ReactModal.setAppElement('#root');
+
+if (process.env.NODE_ENV !== 'test') ReactModal.setAppElement('#root');
 
 export class ConfirmDeleteModal extends React.Component{
 	constructor(props){
