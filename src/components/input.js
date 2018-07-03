@@ -17,7 +17,7 @@ export default class Input extends React.Component {
         let warning;
         if (this.props.meta.touched && this.props.meta.warning) {
             warning = (
-                <div className="form-warning">{this.props.meta.warning}</div>
+                <div className="remainder">{this.props.meta.warning}</div>
             );
         }
 

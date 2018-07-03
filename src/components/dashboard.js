@@ -1,9 +1,12 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
-import requiresLogin from './requires-login';
+import {Redirect, Switch} from 'react-router-dom';
 
 export function Dashboard(props){
-  return <Redirect to="/my-bucket" />;
+  return (
+  	<Switch>
+  	<Redirect from="/dashboard" to="/my-bucket" />
+  	</Switch>
+  );
 }
 
-export default requiresLogin()(Dashboard);
+export default Dashboard;
