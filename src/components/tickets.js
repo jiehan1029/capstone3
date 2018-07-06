@@ -15,39 +15,35 @@ export default function Tickets(props){
 		>
 			<CardHeader className={`ticket-${ticket.type}`}>
 				{ticket.what}
-				<div className="ticket-type">{ticket.type}</div>
+				<div className="ticket-type">
+					<span title="click to view moments on my wall"><Link to="/my-wall">{ticket.completeTimes} moments</Link></span>
+					<span>{ticket.type}</span>
+				</div>
 			</CardHeader>
+			
 			<CardBody>
 				<div className="ticket-where">{ticket.where}</div>
 				<div className="ticket-details">{ticket.details}</div>
-				<div className="ticket-completeTimes">
-					You have {ticket.completeTimes} moments of it, 
-					<span><Link to="/my-wall"> view them on my wall</Link>, or</span>
-				</div>
 			</CardBody>
 
 			<div className='modal-btns'>
-
-			<AddMomentModal 
-				btnTitle="you've done it? post a moment to your wall!"
-				btnText="post a moment"
-				currTicket={ticket._id}
-				currTicketName={ticket.what}
-			/>
-
-			<EditTicketModal 
-				btnTitle="edit the activity"
-				btnText="edit"
-				ticketId={ticket._id}
-				currTicketName={ticket.what}
-			/>
-
-			<ConfirmDeleteModal 
-				btnTitle="delete this activity ticket"
-				btnText="delete"
-				ticketId={ticket._id}
-			/>
-
+				<AddMomentModal 
+					btnTitle="you've done it? post a moment to your wall!"
+					btnText="post a moment"
+					currTicket={ticket._id}
+					currTicketName={ticket.what}
+				/>
+				<EditTicketModal 
+					btnTitle="edit the activity"
+					btnText="edit"
+					ticketId={ticket._id}
+					currTicketName={ticket.what}
+				/>
+				<ConfirmDeleteModal 
+					btnTitle="delete this activity ticket"
+					btnText="delete"
+					ticketId={ticket._id}
+				/>
 			</div>
 
 		</Card>));

@@ -51,7 +51,6 @@ export class TicketForm extends React.Component{
 		    onChange={this.resetFormStatus}
 		    className={this.props.classNames} 
 		  >
-		    <fieldset>
 		    <legend>{this.props.legend}</legend>
 		    <FormGroup>
 		    <ControlLabel>What: <br/><FormControl componentClass="input" type="text" name="what" required placeholder="pool party"/></ControlLabel>
@@ -71,7 +70,6 @@ export class TicketForm extends React.Component{
 		    <FormGroup>
 		    <ControlLabel>Details: <br/><FormControl componentClass="textarea" name="details" placeholder="more about this activity" /></ControlLabel>
 		    </FormGroup>
-		    </fieldset>
 		    <Button type="submit">Submit</Button>
 		    <Button type="reset">Reset</Button>
 		    <div className="remainder">{this.state.formSubmitStatus}</div>

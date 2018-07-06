@@ -8,7 +8,6 @@ import AddMomentModal from './add-moment-modal';
 import RecordCollectionLightbox from './record-collection-lightbox';
 
 import { Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
-import {Glyphicon} from 'react-bootstrap';
 
 const customStyles={
   content:{
@@ -32,7 +31,8 @@ export class MomentCollection extends React.Component{
       viewMore:false,
       showModal:false,
       ticketIdToDel:null,
-      recordIdToDel:null
+      recordIdToDel:null,
+      tempPhotoToDel:null
     }
     this.openLightbox=this.openLightbox.bind(this);
     this.expandCollectionPhotos=this.expandCollectionPhotos.bind(this);
@@ -52,8 +52,12 @@ export class MomentCollection extends React.Component{
   }
 
   deleteOnePhoto(e){
-    const imageId=ReactDOM.findDOMNode(e.target).parentNode.getAttribute('data-imageid');
-    this.props.dispatch(deleteOnePhoto(imageId));    
+    e.stopPropagation();
+    const imageId=ReactDOM.findDOMNode(e.target).parentNode.getAttribute('data-imageid'); 
+    this.setState({
+      tempPhotoToDel:imageId
+    })
+    this.openModal();  
   }
 
   expandCollectionPhotos(e){
@@ -75,11 +79,20 @@ export class MomentCollection extends React.Component{
   }  
 
   closeModal(){
-    this.setState({showModal:false})
+    this.setState({
+      showModal:false,
+      tempPhotoToDel:null,
+      ticketIdToDel:null,
+      recordIdToDel:null
+    })
   }  
 
   deleteConfirm(){
-    this.props.dispatch(deleteRecordsCollection(this.state.ticketIdToDel,this.state.recordIdToDel));
+    if(this.state.tempPhotoToDel){
+      this.props.dispatch(deleteOnePhoto(this.state.tempPhotoToDel));       
+    }else{
+      this.props.dispatch(deleteRecordsCollection(this.state.ticketIdToDel,this.state.recordIdToDel));
+    }
     this.closeModal();
   }
 
@@ -108,7 +121,11 @@ export class MomentCollection extends React.Component{
             <img src={img.src} alt={`activity record - ${index}`} 
               onClick={e=>this.openLightbox(e,index)}
               data-imageid={img.imageid} title={img.caption} className='img-thumbnail'/>
-            <button onClick={e=>{this.deleteOnePhoto(e)}}><Glyphicon glyph="remove"/></button>
+            <br/>
+            <Button outline 
+              className="delete-one-photo-btn" 
+              onClick={e=>this.deleteOnePhoto(e)}
+              title="click to delete this photo">x</Button>
             <div className='img-caption'>{img.caption}</div>
           </div>
         );
@@ -124,7 +141,7 @@ export class MomentCollection extends React.Component{
       >
         Confirm Deletion?
         <br />
-        <Button outline onClick={this.deleteConfirm}>Yes, delete</Button>
+        <Button className="confirm-delete-btn" outline onClick={this.deleteConfirm}>Yes, delete</Button>
         <br />
         <Button outline onClick={this.closeModal}>Cancel</Button>
       </ReactModal>
@@ -145,13 +162,16 @@ export class MomentCollection extends React.Component{
           <div>
             <CardText>{this.props.records.imageUrl.length} photos in this collection</CardText>
             <div className="collection-photo-container-multi">{photos}</div>
-            <a href="dummy" className="view-more-photos-link" onClick={this.expandCollectionPhotos}>View more/ View less</a>        
+            <div className="dummy-link-container">
+              <a href="dummy" className="dummy-link" onClick={e=>this.expandCollectionPhotos(e)}>View more / less</a>      
+            </div>
           </div>
 
           <div className="moment-collection-btn-group">
+
             <AddMomentModal 
               btnTitle="add a moment"
-              btnText="Add a moment"
+              btnText="New moment"
               currTicket={this.props.records.ticketId}
               currTicketName={this.props.records.ticketName}
               collectionDate={this.props.records.dateStr}
@@ -172,3 +192,4 @@ export class MomentCollection extends React.Component{
 }
 
 export default connect()(MomentCollection);
+

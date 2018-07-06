@@ -53,7 +53,7 @@ export class ConfirmDeleteModal extends React.Component{
 		  >
 		  	Confirm Deletion?
 		  	<br />
-		  	<Button outline onClick={this.deleteConfirm}>Yes, delete</Button>
+		  	<Button className="confirm-delete-btn" outline onClick={this.deleteConfirm}>Yes, delete</Button>
 		  	<br />
 		  	<Button outline onClick={this.closeModal}>Cancel</Button>
 		  </ReactModal>

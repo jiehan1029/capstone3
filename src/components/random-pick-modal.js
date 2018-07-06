@@ -33,6 +33,7 @@ export default class RandomPickModal extends React.Component{
 	}
 
 	closeModal(){
+		this.props.resetRandomPick();
 		this.setState({showModal:false})
 	}
 

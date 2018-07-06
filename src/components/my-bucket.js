@@ -25,6 +25,7 @@ export class MyBucket extends React.Component {
     //this.resetFormStatus=this.resetFormStatus.bind(this);
     this.filterByType=this.filterByType.bind(this);
     this.randomPick=this.randomPick.bind(this);
+    this.resetRandomPick=this.resetRandomPick.bind(this);
   }
 
   componentDidMount() {
@@ -91,6 +92,11 @@ export class MyBucket extends React.Component {
     }.bind(this),2000);
   }
 
+  resetRandomPick(){
+    this.setState({showRandomPickModal:false});
+    this.setState({randomPick:null});
+  }
+
   render() {
     //must declare a variable instead of using props.tickets directly
     // because when mount the component initially the tickets prop doesn't exist
@@ -120,10 +126,11 @@ export class MyBucket extends React.Component {
           randomPick={this.randomPick}
         />
 
-        <Button 
+        <Button
+          className="new-ticket-btn"
           onClick={()=>this.toggleFormDisplay()}
           title="click to toggle"
-        >Click to add new activity</Button>
+        >New Activity</Button>
 
         <TicketForm
           legend="Having something in mind?"
@@ -136,6 +143,7 @@ export class MyBucket extends React.Component {
         <RandomPickModal 
           showModal={this.state.showRandomPickModal}
           pick={this.state.randomPick}
+          resetRandomPick={this.resetRandomPick}
         />
 
       </section>

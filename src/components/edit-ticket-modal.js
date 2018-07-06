@@ -2,6 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import {connect} from 'react-redux';
 import TicketForm from './ticket-form';
+import classNames from 'classnames';
 
 import {editTicket} from '../actions/protected-data';
 
@@ -17,7 +18,6 @@ const customStyles={
 		transform:'translate(-50%,-50%)'
 	}
 }
-//ReactModal.setAppElement('#root');
 
 if (process.env.NODE_ENV !== 'test') ReactModal.setAppElement('#root');
 
@@ -85,7 +85,7 @@ export class EditTicketModal extends React.Component{
 				<TicketForm 
           onSubmit={e=>this.handleEdit(e)}
           resetFormStatus={this.resetFormStatus}
-          classNames="form"
+          classNames={classNames("form","new-ticket-form")}
           legend={"Edit - "+this.props.currTicketName}
           formSubmitStatus={this.state.formSubmitStatus}					
 				/>
