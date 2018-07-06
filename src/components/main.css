@@ -87,7 +87,7 @@ form input{
 
 /* header, nav and footer */
 .banner{
-	background-image: url("http://res.cloudinary.com/rollercoaster/image/upload/v1530407579/pink-bg.jpg");
+	background-image: url("https://res.cloudinary.com/rollercoaster/image/upload/v1530407579/pink-bg.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	width:100%;
@@ -162,7 +162,7 @@ footer{
   text-align:center;
   padding-bottom: 10px;
   margin-top:0px;
-	background-image: url("http://res.cloudinary.com/rollercoaster/image/upload/v1530407579/blackboard.jpg");
+	background-image: url("https://res.cloudinary.com/rollercoaster/image/upload/v1530407579/blackboard.jpg");
 	background-repeat: repeat;  
 }
 
@@ -200,7 +200,7 @@ footer a{
 .my-bucket-page{
 	width:100%;
 	margin:0px;
-	background-image: url("http://res.cloudinary.com/rollercoaster/image/upload/v1530407579/blackboard.jpg");
+	background-image: url("https://res.cloudinary.com/rollercoaster/image/upload/v1530407579/blackboard.jpg");
 	background-repeat: repeat;
 }
 
@@ -347,7 +347,7 @@ footer a{
 .my-wall-page{
 	width:100%;
 	margin:0px;
-	background-image: url("http://res.cloudinary.com/rollercoaster/image/upload/v1530407580/wall_background.jpg");
+	background-image: url("https://res.cloudinary.com/rollercoaster/image/upload/v1530407580/wall_background.jpg");
 	background-repeat: repeat;
 	background-size: contain;
 }
