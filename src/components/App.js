@@ -12,7 +12,7 @@ import RegistrationPage from './registration-page';
 import NotFoundRoute from './not-found-route';
 import {refreshAuthToken} from '../actions/auth';
 
-import './main.css';
+import './style.css';
 
 export class App extends React.Component {
   componentDidUpdate(prevProps) {
