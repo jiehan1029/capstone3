@@ -13,22 +13,33 @@ The server is alive [here](https://summer-bucket-server.herokuapp.com/), with gi
 ## What this app does
 User need to create an account to access all the features of the app. For trial, use **demoUser** and **demoPassword**
 
+
 ![landing page](landing-page.PNG)
 
+
 After logged in, user will be redirected to **my-bucket** page, where user can create new activity ticket, view & sort current ticket, and pick an activity ticket **randomly**!
+
+
 ![my bucket page, filter tickets](my-bucket-1.PNG)
+
 
 ![my bucket page, tickets view](my-bucket-2.PNG)
 
+
 ![random picker](random-pick.PNG)
+
 
 In each activity ticket card, user can edit activity content, or create a moment by uploading photos.
 
+
 ![image uploading modal](img-uploader.PNG)
+
 
 All uploaded photos will be posted on **my-wall**, arranged in activity and date. User can also view them in lightbox.
 
+
 ![my wall page](my-wall.PNG)
+
 
 ![lightbox](lightbox.PNG) 
 
