@@ -109,7 +109,7 @@ export class ImageUploader extends React.Component {
           />
           </FormGroup>
           <FormGroup>
-          <Label htmlFor="input-file">select a photo</Label>
+          <Label htmlFor="input-file">select a photo (max 10 MB)</Label>
           <Input
             id="input-file" 
             name="file"

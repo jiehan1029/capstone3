@@ -499,9 +499,11 @@ footer a{
 }
 
 .delete-one-photo-btn{
-	height:5px;
+	height:20px;
 	width:20px;
-	line-height: 5px;
+	line-height: 15px;
+	text-align: center;
+	padding: 0px;
 }
 
 .img-thumbnail{
