@@ -95,7 +95,7 @@ export class ImageUploader extends React.Component {
       processing = <FormText>Processing, hang tight</FormText>;
     }
     return (
-      <div>
+      <div className="img-uploader-div">
         <form onSubmit={e=>this.handleSubmit(e)} onChange={()=>this.handleFormChange()}>
           <FormGroup>
           <Label htmlFor="input-date">Date: </Label>

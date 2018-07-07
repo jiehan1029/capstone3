@@ -79,7 +79,7 @@ export default class TypeFilter extends React.Component{
 				<br />
 				<Button onClick={e=>this.passSelectionToParent(e)}>Filter by selected categories</Button>
 				<p>Or, draw one activity ticket randomly...</p>
-				<Button onClick={e=>this.randomPick(e)}>Try my luck!</Button>
+				<Button className="random-pick-btn" onClick={e=>this.randomPick(e)}>Feeling lucky!</Button>
 			</form>
 		);
 	}
