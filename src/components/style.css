@@ -24,7 +24,7 @@ section{
 	margin:20px;
 	padding-left:20px; 
 	padding-right: 20px;
-	padding-top: 0px;
+	padding-top: 60px;
 	padding-bottom: 40px;
 }
 
@@ -205,8 +205,20 @@ footer a{
 }
 
 /* landing page */
+.landing-page{
+	background-image: url(https://res.cloudinary.com/rollercoaster/image/upload/v1532277658/338358-PA6NCX-31.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.landing-page h2{
+	font-size:2.5rem;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px white;
+}
 .landing-page p{
 	text-align: center;
+	font-size:2rem;
+	text-shadow: 1px 1px 1px white;
 }
 
 /* login-form */
@@ -474,7 +486,7 @@ footer a{
 .my-wall-page{
 	width:100%;
 	margin:0px;
-	background-image: url("https://res.cloudinary.com/rollercoaster/image/upload/v1530407580/wall_background.jpg");
+	background-image: url(https://res.cloudinary.com/rollercoaster/image/upload/v1532278321/5372.jpg);
 	background-repeat: repeat;
 	background-size: contain;
 }
@@ -486,8 +498,7 @@ footer a{
 
 .my-wall-page header{
 	color:black;
-	text-shadow: 1px 1px 1px grey;
-	font-size:2rem;
+	font-size:2.5rem;
 }
 
 .wall-no-record{
@@ -505,7 +516,9 @@ footer a{
 	background-color: #764289;
 	color:white;
 }
-
+.moment-collection-card .card-header h3,.moment-collection-card .card-header p{
+	margin-bottom: 0px;
+}
 .collection-photo-container-single{
 	text-align: center;
 }

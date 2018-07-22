@@ -56,6 +56,12 @@ export default class TypeFilter extends React.Component{
 			}
 			type.all.push(ticket);
 		});
+		let toggleRandomPick;
+		if(type.all.length===0){
+			toggleRandomPick="hide";
+		}else{
+			toggleRandomPick="";
+		}
 		return(
 			<form className="type-filter-form">
 				<div className='flex-container'>
@@ -78,8 +84,10 @@ export default class TypeFilter extends React.Component{
 				</div>
 				<br />
 				<Button onClick={e=>this.passSelectionToParent(e)}>Filter by selected categories</Button>
-				<p>Or, draw one activity ticket randomly...</p>
-				<Button className="random-pick-btn" onClick={e=>this.randomPick(e)}>Feeling lucky!</Button>
+				<div className={toggleRandomPick}>
+					<p>Or, draw one activity ticket randomly...</p>
+					<Button className="random-pick-btn" onClick={e=>this.randomPick(e)}>Feeling lucky!</Button>
+				</div>
 			</form>
 		);
 	}
